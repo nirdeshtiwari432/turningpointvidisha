@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import "./hero.css";
+import "./Hero.css";
 
 // Import local images
 import p1 from "../../assets/p1.jpg";

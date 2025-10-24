@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./membership.css";
+import "./Membership.css";
 
 const MembershipPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
