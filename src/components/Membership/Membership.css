@@ -1,0 +1,179 @@
+/* Membership Section - Responsive & Enhanced */
+
+.membership {
+  padding: 80px 20px;
+  background: #f9f9f9;
+  text-align: center;
+}
+
+.membership-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.membership-subtitle {
+  color: #666;
+  margin-bottom: 40px;
+  font-size: 1rem;
+}
+
+.category-title {
+  font-size: 1.5rem;
+  margin: 30px 0 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+.membership-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Individual Card */
+.card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  width: 280px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  position: relative;
+  transition: all 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  border: 2px solid #007bff;
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.card.popular {
+  border: 2px solid #007bff;
+}
+
+.card .badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #007bff;
+  color: white;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 12px;
+}
+
+/* Pricing */
+.price {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+.price span {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Features List */
+.card ul {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+  text-align: left;
+}
+
+.card ul li {
+  margin: 8px 0;
+  color: #333;
+}
+
+/* Buttons */
+.btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
+  transition: background 0.3s, transform 0.2s ease;
+}
+
+.btn:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* ============================= */
+/*      RESPONSIVE DESIGN        */
+/* ============================= */
+
+/* Tablets (≤768px) */
+@media (max-width: 768px) {
+  .membership {
+    padding: 60px 15px;
+  }
+
+  .membership-title {
+    font-size: 1.8rem;
+  }
+
+  .membership-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+  }
+
+  .category-title {
+    font-size: 1.3rem;
+  }
+
+  .membership-cards {
+    gap: 15px;
+  }
+
+  .card {
+    width: 45%;
+  }
+}
+
+/* Small Mobile (≤480px) */
+@media (max-width: 480px) {
+  .membership {
+    padding: 40px 10px;
+  }
+
+  .membership-title {
+    font-size: 1.5rem;
+  }
+
+  .membership-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .category-title {
+    font-size: 1.2rem;
+  }
+
+  .membership-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .price {
+    font-size: 20px;
+  }
+
+  .btn {
+    padding: 12px;
+    font-size: 14px;
+  }
+}

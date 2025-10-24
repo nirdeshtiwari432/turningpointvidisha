@@ -1,0 +1,125 @@
+/* Seat.css - Responsive */
+
+/* Container */
+.seat-page {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.seat-page h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #1e40af;
+}
+
+/* Search Bar */
+.search-bar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.search-bar input {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+/* Table Container */
+.table-container {
+  overflow-x: auto;
+}
+
+/* Table Styles */
+.seat-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.seat-table th,
+.seat-table td {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.seat-table th {
+  background-color: #1e40af;
+  color: white;
+}
+
+.seat-table tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+.seat-table tr:hover {
+  background-color: #e0e7ff;
+  transition: background-color 0.3s;
+}
+
+/* ===== Responsive Design ===== */
+
+/* Tablet: 769px–1024px */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .seat-page {
+    padding: 1.5rem;
+  }
+
+  .search-bar input {
+    max-width: 300px;
+  }
+
+  .seat-table th,
+  .seat-table td {
+    padding: 0.65rem 0.85rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Mobile: ≤768px */
+@media (max-width: 768px) {
+  .seat-page {
+    padding: 1rem;
+  }
+
+  .search-bar {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .search-bar input {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .seat-table {
+    font-size: 0.85rem;
+    min-width: 600px; /* allows horizontal scroll */
+  }
+
+  .seat-table th,
+  .seat-table td {
+    padding: 0.6rem 0.8rem;
+  }
+}
+
+/* Small Mobile: ≤480px */
+@media (max-width: 480px) {
+  .seat-page {
+    padding: 0.8rem;
+  }
+
+  .seat-table {
+    min-width: 500px;
+    font-size: 0.8rem;
+  }
+
+  .seat-table th,
+  .seat-table td {
+    padding: 0.5rem 0.6rem;
+  }
+}

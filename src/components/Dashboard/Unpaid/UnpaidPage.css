@@ -1,0 +1,97 @@
+/* UnpaidPage.css - Responsive Version */
+.unpaid-page-container {
+  width: 100%;
+  min-height: 100vh;
+  background: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header Section */
+.unpaid-header {
+  background: white;
+  padding: 25px 30px;
+  border-bottom: 1px solid #dee2e6;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 100%;
+}
+
+.unpaid-header h1 {
+  margin: 0 0 5px 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.unpaid-header p {
+  margin: 0;
+  color: #6c757d;
+  font-size: 1rem;
+}
+
+/* Content Section */
+.unpaid-content {
+  padding: 30px;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* ============================= */
+/*        RESPONSIVE DESIGN      */
+/* ============================= */
+
+/* Tablets (≤1024px) */
+@media (max-width: 1024px) {
+  .unpaid-header {
+    padding: 20px 25px;
+  }
+
+  .unpaid-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .unpaid-header p {
+    font-size: 0.95rem;
+  }
+
+  .unpaid-content {
+    padding: 25px;
+  }
+}
+
+/* Mobile (≤640px) */
+@media (max-width: 640px) {
+  .unpaid-header {
+    padding: 18px 15px;
+    text-align: center;
+  }
+
+  .unpaid-header h1 {
+    font-size: 1.3rem;
+    line-height: 1.4;
+  }
+
+  .unpaid-header p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .unpaid-content {
+    padding: 20px 12px;
+  }
+}
+
+/* Extra small mobile (<360px) */
+@media (max-width: 360px) {
+  .unpaid-header h1 {
+    font-size: 1.15rem;
+  }
+
+  .unpaid-header p {
+    font-size: 0.85rem;
+  }
+
+  .unpaid-content {
+    padding: 15px 10px;
+  }
+}

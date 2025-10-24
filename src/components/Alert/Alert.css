@@ -1,0 +1,74 @@
+/* Container for the alerts page */
+.alerts-page {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* Page title */
+.alerts-page h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+/* Container for all alert cards */
+.alerts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Individual alert card */
+.alert-card {
+  background: #fff;
+  border-left: 5px solid #ff4d4f; /* Red accent for alert */
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect on card */
+.alert-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Alert text */
+.alert-card p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Highlight strong text in alert */
+.alert-card strong {
+  color: #ff4d4f;
+}
+
+/* No alerts message */
+.no-alerts {
+  text-align: center;
+  font-size: 1rem;
+  color: #666;
+  margin-top: 20px;
+}
+
+/* Responsive design for small screens */
+@media (max-width: 600px) {
+  .alerts-page {
+    padding: 0 10px;
+  }
+
+  .alert-card {
+    padding: 12px 15px;
+  }
+
+  .alerts-page h2 {
+    font-size: 1.5rem;
+  }
+}

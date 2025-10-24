@@ -1,0 +1,443 @@
+/* DashboardHeader.css - FULLY RESPONSIVE WITH IMPROVED SPACING */
+
+/* Base Styles - Mobile First */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -280px;
+  width: 280px;
+  height: 100vh;
+  background: #212529;
+  z-index: 1000;
+  overflow-y: auto;
+  transition: left 0.3s ease;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.main-content {
+  margin-left: 0;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  width: 100%;
+  padding: 0;
+  position: relative;
+  transition: margin-left 0.3s ease;
+}
+
+/* Improved main content wrapper spacing */
+.main-content-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  padding: 70px 20px 20px;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Mobile top bar */
+.mobile-top-bar {
+  background: white;
+  padding: 12px 16px;
+  border-bottom: 1px solid #dee2e6;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1001;
+  height: 60px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-menu-btn {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: #2c3e50;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.mobile-menu-btn:hover {
+  background-color: #f8f9fa;
+}
+
+.mobile-logo {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.mobile-top-bar-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Mobile sidebar backdrop */
+.mobile-sidebar-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 999;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.mobile-sidebar-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* IMPROVED PAGE HEADER STYLES - Better spacing */
+.page-header-section {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border-left: 4px solid #667eea;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+  letter-spacing: -0.25px;
+  line-height: 1.3;
+}
+
+.page-subtitle {
+  font-size: 0.95rem;
+  color: #6c757d;
+  margin-bottom: 0;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Content section with better spacing */
+.content-section {
+  padding: 0;
+  margin-top: 20px;
+}
+
+/* Card header improvements for better hierarchy */
+.card-header {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 20px;
+  border-bottom: 1px solid #dee2e6;
+  border-radius: 8px 8px 0 0;
+}
+
+.card-header h3 {
+  margin: 0 0 6px 0;
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.card-header p {
+  margin: 0;
+  color: #6c757d;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Table spacing improvements */
+.simple-table {
+  margin: 0;
+  width: 100%;
+}
+
+.simple-table th,
+.simple-table td {
+  padding: 12px 15px;
+}
+
+/* Tablet Styles (min-width: 768px) */
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100vh;
+    background: #212529;
+    z-index: 1000;
+    overflow-y: auto;
+    transform: none;
+    box-shadow: none;
+  }
+  
+  .sidebar.active {
+    left: 0;
+  }
+  
+  .main-content {
+    margin-left: 220px;
+    width: calc(100% - 220px);
+  }
+  
+  .main-content-wrapper {
+    padding: 90px 40px 30px;
+  }
+  
+  .mobile-top-bar {
+    display: none;
+  }
+  
+  .mobile-sidebar-backdrop {
+    display: none;
+  }
+  
+  .page-header-section {
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    border-left: 5px solid #667eea;
+  }
+  
+  .page-title {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .page-subtitle {
+    font-size: 1.05rem;
+  }
+  
+  .content-section {
+    margin-top: 25px;
+  }
+  
+  .card-header {
+    padding: 25px 30px;
+  }
+  
+  .card-header h3 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+  }
+  
+  .card-header p {
+    font-size: 0.95rem;
+  }
+  
+  .simple-table th,
+  .simple-table td {
+    padding: 14px 18px;
+  }
+}
+
+/* Desktop Styles (min-width: 1024px) */
+@media (min-width: 1024px) {
+  .main-content-wrapper {
+    padding: 100px 55px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .page-header-section {
+    padding: 35px 40px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+  }
+  
+  .page-title {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.5px;
+  }
+  
+  .page-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .content-section {
+    margin-top: 30px;
+  }
+  
+  .card-header {
+    padding: 25px 30px;
+  }
+  
+  .card-header h3 {
+    font-size: 1.4rem;
+  }
+  
+  .simple-table th,
+  .simple-table td {
+    padding: 16px 20px;
+  }
+}
+
+/* Large Desktop Styles (min-width: 1440px) */
+@media (min-width: 1440px) {
+  .main-content-wrapper {
+    padding: 100px 60px 40px;
+  }
+  
+  .page-header-section {
+    padding: 40px 45px;
+  }
+}
+
+/* Small Mobile Adjustments (max-width: 360px) */
+@media (max-width: 360px) {
+  .main-content-wrapper {
+    padding: 70px 15px 15px;
+  }
+  
+  .page-header-section {
+    padding: 20px;
+    border-radius: 6px;
+  }
+  
+  .page-title {
+    font-size: 1.3rem;
+  }
+  
+  .page-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .card-header {
+    padding: 16px;
+  }
+  
+  .card-header h3 {
+    font-size: 1.1rem;
+  }
+  
+  .simple-table th,
+  .simple-table td {
+    padding: 10px 12px;
+  }
+}
+
+/* Sidebar Navigation Styles */
+.sidebar-nav {
+  padding: 20px 0;
+}
+
+.sidebar-header {
+  padding: 0 20px 20px;
+  border-bottom: 1px solid #343a40;
+  margin-bottom: 20px;
+}
+
+.sidebar-logo {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: block;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  margin-bottom: 4px;
+}
+
+.sidebar-menu a {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  color: #adb5bd;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
+  background-color: #343a40;
+  color: white;
+  border-left-color: #667eea;
+}
+
+.sidebar-menu i {
+  margin-right: 12px;
+  width: 20px;
+  text-align: center;
+}
+
+/* Scrollbar Styling for Sidebar */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: #343a40;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #495057;
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #6c757d;
+}
+
+/* Animation for mobile menu */
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .sidebar {
+    border-right: 2px solid white;
+  }
+  
+  .page-header-section {
+    border-left: 5px solid #000;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .sidebar {
+    transition: none;
+  }
+  
+  .mobile-sidebar-backdrop {
+    transition: none;
+  }
+  
+  .main-content {
+    transition: none;
+  }
+}

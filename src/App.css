@@ -1,0 +1,36 @@
+/* NUCLEAR RESET */
+* {
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+body, html, #root {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Force the layout */
+.sidebar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 220px !important;
+  height: 100vh !important;
+  background: #212529 !important;
+}
+
+.main-content {
+  margin-left: 220px !important;
+  width: calc(100% - 220px) !important;
+  min-height: 100vh !important;
+  background: #f8f9fa !important;
+}
+
+/* Mobile override */
+@media (max-width: 767px) {
+  .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+}
