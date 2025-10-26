@@ -10,7 +10,7 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await fetch("http://localhost:5000/user/profile", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/user/profile`, {
           credentials: "include",
         });
         const data = await res.json();
