@@ -45,7 +45,7 @@ const ProfilePage = () => {
     formData.append("profilePic", file);
 
     try {
-      const res = await fetch("http://localhost:5000/user/upload-photo", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/user/upload-photo`, {
         method: "POST",
         body: formData,
         credentials: "include",
@@ -68,7 +68,7 @@ const ProfilePage = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await fetch("http://localhost:5000/user/logout", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/user/logout`, {
         method: "GET",
         credentials: "include",
       });
