@@ -47,20 +47,18 @@ const Header = () => {
             <li><Link to="/about">About</Link></li>
             <li><Link to="/membership">Membership</Link></li>
             <li><a href="#library" onClick={handleLibraryClick}>Library</a></li>
+            <li><Link to="/alerts">Alerts</Link></li>
 
             {/* Admin Only Links */}
             {user?.role === "admin" && (
               <>
-                
-                <li><Link to="/alerts">Alerts</Link></li>
-              </>
-            )}
-
-            <li>
+              <li>
               <button className="join-btn" onClick={handleProfileClick}>
                 Profile
               </button>
-            </li>
+              </li>
+              </>
+            )}
           </ul>
         </nav>
       </div>
