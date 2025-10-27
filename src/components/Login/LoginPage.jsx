@@ -34,7 +34,7 @@ const LoginPage = () => {
       if (data.success) {
         alert(data.message);
 
-        localStorage.setItem("user", JSON.stringify({ ...data.user, role }));
+        //localStorage.setItem("user", JSON.stringify({ ...data.user, role }));
         window.location.href = role === "admin" ? "/dashboard" : "/user/profile";
       } else {
         setError(data.message || "Login failed");
