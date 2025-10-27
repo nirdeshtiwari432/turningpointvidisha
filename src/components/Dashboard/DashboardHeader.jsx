@@ -14,6 +14,7 @@ const DashboardHeader = ({ children }) => {
         credentials: "include",
       });
       if (res.ok) {
+        localStorage.removeItem("user");
         navigate("/login");
       } else {
         alert("Logout failed. Try again.");
