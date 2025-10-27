@@ -60,7 +60,7 @@ const Hero = () => {
     if (!user) {
       // Not logged in → go to login page
       navigate("/login");
-    } else if (user.role === "admin") {
+    } else if (user?.role === "admin") {
       // Admin logged in
       navigate("/dashboard");
     } else {
