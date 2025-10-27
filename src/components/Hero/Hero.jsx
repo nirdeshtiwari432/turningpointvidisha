@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Hero.css";
 
-// Import local images
 import p1 from "../../assets/p1.jpg";
 import p2 from "../../assets/p2.jpg";
 import p3 from "../../assets/p3.jpg";
@@ -13,14 +12,36 @@ const Hero = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [showGallery, setShowGallery] = useState(false);
+  const [user, setUser] = useState(null); // store session user
 
-  const photos = [p1, p2, p3, p4, p5]; // use imported images
+  const photos = [p1, p2, p3, p4, p5];
+
+  // 🔹 Check session on mount
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/user/profile`, {
+          credentials: "include", // send cookies
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          setUser(data.user);
+        } else {
+          setUser(null);
+        }
+      } catch (err) {
+        console.error("Session check failed:", err);
+        setUser(null);
+      }
+    };
+
+    checkSession();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setShowGallery(true);
-      }
+      if (window.scrollY > 300) setShowGallery(true);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -30,12 +51,23 @@ const Hero = () => {
     if (location.state?.scrollTo === "library") {
       const section = document.getElementById("library-section");
       if (section) {
-        setTimeout(() => {
-          section.scrollIntoView({ behavior: "smooth" });
-        }, 300);
+        setTimeout(() => section.scrollIntoView({ behavior: "smooth" }), 300);
       }
     }
   }, [location]);
+
+  const handleJoinClick = () => {
+    if (!user) {
+      // Not logged in → go to login page
+      navigate("/login");
+    } else if (user.role === "admin") {
+      // Admin logged in
+      navigate("/dashboard");
+    } else {
+      // Normal user logged in
+      navigate("/user/profile");
+    }
+  };
 
   return (
     <div className="hero-container">
@@ -57,11 +89,10 @@ const Hero = () => {
               >
                 Explore Library
               </button>
-              <button
-                className="btn secondary"
-                onClick={() => navigate("/login")}
-              >
-                Join Now
+
+              {/* 👇 Join button logic */}
+              <button className="btn secondary" onClick={handleJoinClick}>
+                {user ? "Go to Profile" : "Join Now"}
               </button>
             </div>
           </div>
