@@ -50,7 +50,7 @@ const Header = () => {
             <li><Link to="/alerts">Alerts</Link></li>
 
             {/* Admin Only Links */}
-            {user?.role === "admin" || user?.role === "user" && (
+            {(user?.role === "admin" || user?.role === "user") && (
               <>
               <li>
               <button className="join-btn" onClick={handleProfileClick}>
