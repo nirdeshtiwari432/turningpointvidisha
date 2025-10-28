@@ -94,16 +94,16 @@ const LoginPage = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>{role === "admin" ? "Mobile" : "Number"}</label>
+            <label>{role === "admin" ? "Number" : "Number"}</label>
             <input
-              type="text"
+              type="number"
               placeholder={
                 role === "admin"
-                  ? "Enter your mobile"
+                  ? "Enter your number"
                   : "Enter your number"
               }
               value={number}
-              onChange={(e) => setNumber(e.target.value)}
+              onChange={(e) => setNumber(e.target.value.replace(/\D/g, ""))}
               required
             />
           </div>
