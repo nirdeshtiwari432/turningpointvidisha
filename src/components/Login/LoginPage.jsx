@@ -2,13 +2,23 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 
+// ✨ Simple sanitization helper
+const sanitizeInput = (value) => {
+  if (typeof value !== "string") return "";
+  // Remove MongoDB operators like $gt, $ne, etc.
+  let sanitized = value.replace(/\$/g, "");
+  // Remove dangerous characters often used in injection
+  sanitized = sanitized.replace(/[{}<>;]/g, "");
+  // Trim spaces
+  return sanitized.trim();
+};
+
 const LoginPage = () => {
   const [number, setNumber] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("user"); // default role
+  const [role, setRole] = useState("user");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -16,10 +26,15 @@ const LoginPage = () => {
     setError("");
     setLoading(true);
 
-    const route = role === "admin" ? "admin/login" : "user/login";
+    // 🔒 Sanitize user inputs before sending
+    const safeNumber = sanitizeInput(number);
+    const safePassword = sanitizeInput(password);
 
-    // Send number for user, mobile for admin
-    const body = role === "admin" ? { mobile: number, password } : { number, password };
+    const route = role === "admin" ? "admin/login" : "user/login";
+    const body =
+      role === "admin"
+        ? { mobile: safeNumber, password: safePassword }
+        : { number: safeNumber, password: safePassword };
 
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/${route}`, {
@@ -33,9 +48,9 @@ const LoginPage = () => {
 
       if (data.success) {
         alert(data.message);
-
         localStorage.setItem("user", JSON.stringify({ ...data.user, role }));
-        window.location.href = role === "admin" ? "/dashboard" : "/user/profile";
+        window.location.href =
+          role === "admin" ? "/dashboard" : "/user/profile";
       } else {
         setError(data.message || "Login failed");
       }
@@ -82,7 +97,11 @@ const LoginPage = () => {
             <label>{role === "admin" ? "Mobile" : "Number"}</label>
             <input
               type="text"
-              placeholder={role === "admin" ? "Enter your mobile" : "Enter your number"}
+              placeholder={
+                role === "admin"
+                  ? "Enter your mobile"
+                  : "Enter your number"
+              }
               value={number}
               onChange={(e) => setNumber(e.target.value)}
               required
@@ -106,7 +125,6 @@ const LoginPage = () => {
             {loading ? "Logging in..." : "Login"}
           </button>
 
-          {/* Register Button */}
           <div className="register-link">
             <p>Don't have an account?</p>
             <button
