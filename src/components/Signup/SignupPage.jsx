@@ -124,7 +124,7 @@ const SignupPage = () => {
             <div className="form-group">
               <label>Mobile Number *</label>
               <input
-                type="text"
+                type="number"
                 name="number"
                 value={form.number}
                 onChange={handleChange}
