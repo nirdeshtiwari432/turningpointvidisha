@@ -20,7 +20,6 @@ const SignupPage = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // If plan changes and is not part_time, reset shift to full_time
     if (name === "plan" && value !== "part_time") {
       setForm({ ...form, [name]: value, shift: "full_time" });
     } else {
@@ -48,26 +47,17 @@ const SignupPage = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
-        credentials: "include",
       });
 
       const data = await res.json();
 
       if (res.ok) {
-        setMessage("✅ Account created successfully!");
-        setForm({
-          name: "",
-          email: "",
-          number: "",
-          membershipType: "",
-          plan: "",
-          shift: "full_time",
-          password: "",
-        });
+        setMessage("✅ OTP sent to your WhatsApp");
 
-        navigate("/user/profile");
+        // ✅ Redirect only with number (backend does NOT send userId)
+        navigate(`/verify-otp?number=${form.number}`);
       } else {
-        setMessage(`❌ ${data.error || "Something went wrong"}`);
+        setMessage(`❌ ${data.message || "Something went wrong"}`);
       }
     } catch (error) {
       console.error("Signup Error:", error);
@@ -95,7 +85,7 @@ const SignupPage = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="form-grid">
-            {/* Name */}
+
             <div className="form-group">
               <label>Name *</label>
               <input
@@ -103,12 +93,10 @@ const SignupPage = () => {
                 name="name"
                 value={form.name}
                 onChange={handleChange}
-                placeholder="Enter your full name"
                 required
               />
             </div>
 
-            {/* Email */}
             <div className="form-group">
               <label>Email</label>
               <input
@@ -116,25 +104,21 @@ const SignupPage = () => {
                 name="email"
                 value={form.email}
                 onChange={handleChange}
-                placeholder="Enter your email"
               />
             </div>
 
-            {/* Number */}
             <div className="form-group">
               <label>Mobile Number *</label>
               <input
-                type="number"
+                type="text"
                 name="number"
                 value={form.number}
                 onChange={handleChange}
-                placeholder="Enter 10-digit number"
                 maxLength={10}
                 required
               />
             </div>
 
-            {/* Password */}
             <div className="form-group">
               <label>Password *</label>
               <input
@@ -142,12 +126,10 @@ const SignupPage = () => {
                 name="password"
                 value={form.password}
                 onChange={handleChange}
-                placeholder="Enter your password"
                 required
               />
             </div>
 
-            {/* Membership Type */}
             <div className="form-group">
               <label>Membership Type *</label>
               <select
@@ -162,7 +144,6 @@ const SignupPage = () => {
               </select>
             </div>
 
-            {/* Plan */}
             <div className="form-group">
               <label>Plan *</label>
               <select
@@ -177,7 +158,6 @@ const SignupPage = () => {
               </select>
             </div>
 
-            {/* Conditionally show Shift only if plan is Part Time */}
             {form.plan === "part_time" && (
               <div className="form-group">
                 <label>Shift *</label>

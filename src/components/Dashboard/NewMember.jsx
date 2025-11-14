@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import DashboardHeader from "./DashboardHeader";
 import "./NewMember.css";
@@ -8,13 +8,14 @@ const NewMember = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    seatId: seatNo || "",
+    seatId: seatId || "",
+    seatNo: seatNo || "",
     name: "",
     email: "",
     number: "",
-    membershipType: "Regular",
-    plan: "1 Month",
-    shift: "Morning",
+    membershipType: "reserved",
+    plan: "full_time",
+    shift: "morning",
     fees: "",
     password: "",
     startDate: "",
@@ -23,6 +24,14 @@ const NewMember = () => {
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+
+  // Auto-clear message after a few seconds
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => setMessage(""), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,16 +45,20 @@ const NewMember = () => {
 
     const payload = {
       member: {
-        name: formData.name,
-        email: formData.email,
-        number: formData.number,
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        number: formData.number.trim(),
         membershipType: formData.membershipType.toLowerCase(),
         plan: formData.plan.toLowerCase(),
         shift: formData.shift.toLowerCase(),
-        fees: formData.fees,
+        fees: Number(formData.fees),
         seat: formData.seatId,
-        startDate: formData.startDate ? new Date(formData.startDate) : new Date(),
-        endDate: formData.endDate ? new Date(formData.endDate) : new Date(),
+        startDate: formData.startDate
+          ? new Date(formData.startDate).toISOString()
+          : new Date().toISOString(),
+        endDate: formData.endDate
+          ? new Date(formData.endDate).toISOString()
+          : new Date().toISOString(),
       },
       pass: {
         password: formData.password,
@@ -53,7 +66,8 @@ const NewMember = () => {
     };
 
     try {
-      console.log(payload)
+      console.log("Submitting Payload:", payload);
+
       const res = await fetch(`${import.meta.env.VITE_API_URL}/admin/new`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -62,6 +76,7 @@ const NewMember = () => {
       });
 
       const data = await res.json();
+
       if (res.ok) {
         setMessage("✅ Member booked successfully!");
         setTimeout(() => navigate("/admin/seats"), 1500);
@@ -69,7 +84,7 @@ const NewMember = () => {
         setMessage(`❌ ${data.error || "Something went wrong"}`);
       }
     } catch (error) {
-      console.error(error);
+      console.error("Error:", error);
       setMessage("❌ Error connecting to server.");
     } finally {
       setLoading(false);
@@ -79,7 +94,7 @@ const NewMember = () => {
   return (
     <DashboardHeader>
       <div className="new-member-page-container">
-        {/* Blue Themed Page Header */}
+        {/* Page Header */}
         <div className="page-header-section blue-theme">
           <div className="header-content">
             <h1 className="page-title">Add New Member</h1>
@@ -92,48 +107,59 @@ const NewMember = () => {
 
         <div className="form-content-section">
           {message && (
-            <div className={`message ${message.startsWith("✅") ? "success" : "error"}`}>
+            <div
+              className={`message ${
+                message.startsWith("✅") ? "success" : "error"
+              }`}
+            >
               {message}
             </div>
           )}
 
           <div className="form-card blue-theme-card">
-            
-
             <form onSubmit={handleSubmit} className="member-form">
-              {/* Basic Information Section */}
+              {/* Basic Information */}
               <div className="form-section-group">
                 <h4 className="section-title">Basic Information</h4>
                 <div className="form-grid">
                   {/* Seat No */}
                   <div className="form-section">
                     <label className="form-label">
-                      <span className="label-icon">💺</span>
-                      Seat No
+                      <span className="label-icon">💺</span> Seat No
                     </label>
                     <input
                       type="text"
-                      name="seatId"
+                      name="seatNo"
                       className="form-input"
-                      value={formData.seatId}
+                      value={formData.seatNo}
                       onChange={handleChange}
                       placeholder="A-12"
                       required
                     />
                   </div>
 
+                  {/* Hidden Seat ID */}
+                  <div className="form-section" hidden>
+                    <input
+                      type="text"
+                      name="seatId"
+                      className="form-input"
+                      value={formData.seatId}
+                      onChange={handleChange}
+                    />
+                  </div>
+
                   {/* Email */}
                   <div className="form-section">
                     <label className="form-label">
-                      <span className="label-icon">📧</span>
-                      Email
+                      <span className="label-icon">📧</span> Email
                     </label>
-                    <input 
-                      type="email" 
-                      name="email" 
-                      className="form-input" 
-                      value={formData.email} 
-                      onChange={handleChange} 
+                    <input
+                      type="email"
+                      name="email"
+                      className="form-input"
+                      value={formData.email}
+                      onChange={handleChange}
                       placeholder="jane.doe@example.com"
                     />
                   </div>
@@ -141,170 +167,152 @@ const NewMember = () => {
                   {/* Membership Type */}
                   <div className="form-section">
                     <label className="form-label">
-                      <span className="label-icon">🎫</span>
-                      Membership Type
+                      <span className="label-icon">🎫</span> Membership Type
                     </label>
-                    <select 
-                      name="membershipType" 
-                      className="form-select" 
-                      value={formData.membershipType} 
-                      onChange={handleChange} 
+                    <select
+                      name="membershipType"
+                      className="form-select"
+                      value={formData.membershipType}
+                      onChange={handleChange}
                     >
-                      <option value="Regular">Regular</option>
-                      <option value="Reserved">Reserved</option>
-                      <option value="Non_reserved">Non-reserved</option>
+                      
+                      <option value="reserved">Reserved</option>
+                      <option value="non_reserved">Non-reserved</option>
                     </select>
                   </div>
 
                   {/* Shift */}
                   <div className="form-section">
                     <label className="form-label">
-                      <span className="label-icon">⏰</span>
-                      Shift
+                      <span className="label-icon">⏰</span> Shift
                     </label>
-                    <select 
-                      name="shift" 
-                      className="form-select" 
-                      value={formData.shift} 
+                    <select
+                      name="shift"
+                      className="form-select"
+                      value={formData.shift}
                       onChange={handleChange}
                     >
-                      <option value="Morning">Morning</option>
-                      <option value="Night">Night</option>
-                      <option value="Full">Full</option>
+                      <option value="morning">Morning</option>
+                      <option value="night">Night</option>
+                      <option value="full">Full</option>
                     </select>
                   </div>
                 </div>
               </div>
 
-              {/* Personal Details Section */}
+              {/* Personal Details */}
               <div className="form-section-group">
                 <h4 className="section-title">Personal Details</h4>
                 <div className="form-grid">
-                  {/* Full Name */}
                   <div className="form-section">
                     <label className="form-label">
-                      <span className="label-icon">👤</span>
-                      Full Name
+                      <span className="label-icon">👤</span> Full Name
                     </label>
-                    <input 
-                      type="text" 
-                      name="name" 
-                      className="form-input" 
-                      value={formData.name} 
-                      onChange={handleChange} 
+                    <input
+                      type="text"
+                      name="name"
+                      className="form-input"
+                      value={formData.name}
+                      onChange={handleChange}
                       placeholder="Jane Doe"
-                      required 
+                      required
                     />
                   </div>
 
-                  {/* Contact */}
                   <div className="form-section">
                     <label className="form-label">
-                      <span className="label-icon">📱</span>
-                      Contact
+                      <span className="label-icon">📱</span> Contact
                     </label>
-                    <input 
-                      type="text" 
-                      name="number" 
-                      className="form-input" 
-                      value={formData.number} 
-                      onChange={handleChange} 
-                      placeholder="+1 (555) 123-4567"
-                      required 
+                    <input
+                      type="text"
+                      name="number"
+                      className="form-input"
+                      value={formData.number}
+                      onChange={handleChange}
+                      placeholder="+91 9876543210"
+                      required
                     />
                   </div>
 
-                  {/* Password */}
                   <div className="form-section">
                     <label className="form-label">
-                      <span className="label-icon">🔒</span>
-                      Password
+                      <span className="label-icon">🔒</span> Password
                     </label>
-                    <input 
-                      type="password" 
-                      name="password" 
-                      className="form-input" 
-                      value={formData.password} 
-                      onChange={handleChange} 
+                    <input
+                      type="password"
+                      name="password"
+                      className="form-input"
+                      value={formData.password}
+                      onChange={handleChange}
                       placeholder="Enter password"
-                      required 
+                      required
                     />
                   </div>
                 </div>
               </div>
 
-              {/* Membership Details Section */}
+              {/* Membership Details */}
               <div className="form-section-group">
                 <h4 className="section-title">Membership Details</h4>
                 <div className="form-grid">
-                  {/* Plan */}
                   <div className="form-section">
                     <label className="form-label">
-                      <span className="label-icon">📅</span>
-                      Plan
+                      <span className="label-icon">📅</span> Plan
                     </label>
-                    <select 
-                      name="plan" 
-                      className="form-select" 
-                      value={formData.plan} 
-                      onChange={handleChange} 
+                    <select
+                      name="plan"
+                      className="form-select"
+                      value={formData.plan}
+                      onChange={handleChange}
                     >
-                      <option value="1 Month">1 Month</option>
-                      <option value="3 Months">3 Months</option>
-                      <option value="6 Months">6 Months</option>
-                      <option value="1 Year">1 Year</option>
+                      <option value="full_time">Full Time</option>
+                      <option value="part_time">Part Time</option>
                     </select>
                   </div>
 
-                  {/* Fees */}
                   <div className="form-section">
                     <label className="form-label">
-                      <span className="label-icon">💰</span>
-                      Fees
+                      <span className="label-icon">💰</span> Fees
                     </label>
                     <div className="fees-input-container">
                       <span className="currency-symbol">₹</span>
-                      <input 
-                        type="number" 
-                        name="fees" 
-                        className="form-input fees-input" 
-                        value={formData.fees} 
-                        onChange={handleChange} 
+                      <input
+                        type="number"
+                        name="fees"
+                        className="form-input fees-input"
+                        value={formData.fees}
+                        onChange={handleChange}
                         placeholder="50.00"
-                        required 
+                        required
                       />
                     </div>
                   </div>
 
-                  {/* Start Date */}
                   <div className="form-section">
                     <label className="form-label">
-                      <span className="label-icon">📆</span>
-                      Start Date
+                      <span className="label-icon">📆</span> Start Date
                     </label>
-                    <input 
-                      type="date" 
-                      name="startDate" 
-                      className="form-input" 
-                      value={formData.startDate} 
-                      onChange={handleChange} 
-                      required 
+                    <input
+                      type="date"
+                      name="startDate"
+                      className="form-input"
+                      value={formData.startDate}
+                      onChange={handleChange}
+                      required
                     />
                   </div>
 
-                  {/* End Date */}
                   <div className="form-section">
                     <label className="form-label">
-                      <span className="label-icon">📆</span>
-                      End Date
+                      <span className="label-icon">📆</span> End Date
                     </label>
-                    <input 
-                      type="date" 
-                      name="endDate" 
-                      className="form-input" 
-                      value={formData.endDate} 
-                      onChange={handleChange} 
-                      required 
+                    <input
+                      type="date"
+                      name="endDate"
+                      className="form-input"
+                      value={formData.endDate}
+                      onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>
@@ -312,28 +320,25 @@ const NewMember = () => {
 
               {/* Buttons */}
               <div className="form-buttons">
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   className="cancel-btn"
                   onClick={() => navigate("/admin/seats")}
                 >
-                  <span className="btn-icon">←</span>
-                  Cancel
+                  <span className="btn-icon">←</span> Cancel
                 </button>
-                <button 
-                  type="submit" 
-                  className="submit-btn" 
+                <button
+                  type="submit"
+                  className="submit-btn"
                   disabled={loading}
                 >
                   {loading ? (
                     <>
-                      <span className="btn-spinner"></span>
-                      Adding Member...
+                      <span className="btn-spinner"></span> Adding Member...
                     </>
                   ) : (
                     <>
-                      <span className="btn-icon">✓</span>
-                      Add Member
+                      <span className="btn-icon">✓</span> Add Member
                     </>
                   )}
                 </button>

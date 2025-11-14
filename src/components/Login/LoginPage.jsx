@@ -5,11 +5,8 @@ import "./login.css";
 // ✨ Simple sanitization helper
 const sanitizeInput = (value) => {
   if (typeof value !== "string") return "";
-  // Remove MongoDB operators like $gt, $ne, etc.
   let sanitized = value.replace(/\$/g, "");
-  // Remove dangerous characters often used in injection
   sanitized = sanitized.replace(/[{}<>;]/g, "");
-  // Trim spaces
   return sanitized.trim();
 };
 
@@ -26,7 +23,6 @@ const LoginPage = () => {
     setError("");
     setLoading(true);
 
-    // 🔒 Sanitize user inputs before sending
     const safeNumber = sanitizeInput(number);
     const safePassword = sanitizeInput(password);
 
@@ -46,6 +42,13 @@ const LoginPage = () => {
 
       const data = await res.json();
 
+      // ✅ If backend wants us to redirect (not verified)
+      if (!data.success && data.redirect) {
+        navigate(data.redirect);
+        return;
+      }
+
+      // ✅ Success login
       if (data.success) {
         alert(data.message);
         localStorage.setItem("user", JSON.stringify({ ...data.user, role }));
@@ -94,14 +97,10 @@ const LoginPage = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>{role === "admin" ? "Number" : "Number"}</label>
+            <label>Number</label>
             <input
               type="number"
-              placeholder={
-                role === "admin"
-                  ? "Enter your number"
-                  : "Enter your number"
-              }
+              placeholder="Enter your number"
               value={number}
               onChange={(e) => setNumber(e.target.value.replace(/\D/g, ""))}
               required
