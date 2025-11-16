@@ -194,7 +194,7 @@ const NewMember = () => {
                     >
                       <option value="morning">Morning</option>
                       <option value="night">Night</option>
-                      <option value="full">Full</option>
+                      <option value="full_time">Full</option>
                     </select>
                   </div>
                 </div>
