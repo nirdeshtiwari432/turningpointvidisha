@@ -1,28 +1,60 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-* {
+/* Reset & Smoothing */
+*, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
-  color: #333;
-  overflow-x: hidden;
+html, body, #root {
+  width: 100%;
+  min-height: 100%;
+  font-family: "Inter", Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #212529;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-html {
-  scroll-behavior: smooth;
+/* Layout Container for Pages */
+.main-container {
+  padding-top: 70px;
 }
 
-a {
-  text-decoration: none;
+/* Sidebar + Main Content Layout */
+.sidebar {
+  width: 220px;
+  background: #212529;
+  color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  padding-top: 70px;
+  transition: transform 0.3s ease-in-out;
+  z-index: 900;
 }
 
-ul {
-  list-style: none;
+.main-content {
+  margin-left: 220px;
+  width: calc(100% - 220px);
+  padding: 20px;
+  min-height: calc(100vh - 70px);
+  transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+
+/* --- Mobile Layout --- */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+    padding: 15px;
+  }
 }

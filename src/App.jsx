@@ -4,6 +4,8 @@ import { Routes, Route } from "react-router-dom";
 // Layout Components
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import Navbar from "./components/Navbar/Navbar";
+import ScrollToTop from "./ScrollToTop";   
 
 // Pages
 import Hero from "./components/Hero/Hero";
@@ -23,20 +25,32 @@ import SeatsPage from "./components/Dashboard/SeatsPage";
 import EditMemberPage from "./components/Dashboard/edit.jsx";
 import MemberDetailsPage from "./components/Dashboard/MemberDetailsPage.jsx";
 import Unpaid from "./components/Dashboard/Unpaid/UnpaidPage.jsx";
-import NewMember from "./components/Dashboard/NewMember.jsx";
+import NewMember from "./components/Dashboard/newmember.jsx";
 import Plan from "./components/Dashboard/plan/ManagePlans.jsx";
-import Alert from "./components/Dashboard/Alert/ManageAlerts.jsx";
+
 import Fees from "./components/Dashboard/Fees/Transactions.jsx"
 
+import Alert from "./components/Dashboard/Alert/ManageAlerts.jsx";
 
 // Auth
 import ProtectedRoute from "./components/Dashboard/ProtectedRoute.jsx";
 import OtpVerify from "./components/Signup/OtpVerify.jsx"
 
+import "./App.css"; // if not already imported
+
 function App() {
   return (
     <>
-      <Header />
+        <ScrollToTop /> 
+      {/* Desktop Header */}
+      <div className="desktop-header">
+        <Header />
+      </div>
+
+      {/* Mobile Navbar */}
+      <div className="mobile-navbar">
+        <Navbar />
+      </div>
 
       <Routes>
         {/* Public Routes */}
@@ -62,6 +76,7 @@ function App() {
         <Route path="/admin/alert" element={<ProtectedRoute><Alert /></ProtectedRoute>} />
         <Route path="/admin/transactions" element={<ProtectedRoute><Fees /></ProtectedRoute>} />
         <Route path="/plan" element={<Plan />} />
+
       </Routes>
 
       <Footer />

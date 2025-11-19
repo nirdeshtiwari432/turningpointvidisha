@@ -13,10 +13,14 @@ const sanitizeInput = (value) => {
 const LoginPage = () => {
   const [number, setNumber] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("user");
+  const [role, setRole] = useState("user"); // Default to user
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const toggleAdminMode = () => {
+    setRole(prevRole => prevRole === "user" ? "admin" : "user");
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,28 +75,19 @@ const LoginPage = () => {
         <h2>Welcome Back</h2>
         <p className="subtitle">Login to continue your journey.</p>
 
-        {/* Role Selection */}
-        <div className="form-group">
-          <label>Login As:</label>
-          <div>
-            <input
-              type="radio"
-              name="role"
-              value="user"
-              checked={role === "user"}
-              onChange={(e) => setRole(e.target.value)}
-            />{" "}
-            User
-            <input
-              type="radio"
-              name="role"
-              value="admin"
-              checked={role === "admin"}
-              onChange={(e) => setRole(e.target.value)}
-              style={{ marginLeft: "20px" }}
-            />{" "}
-            Admin
-          </div>
+        {/* Small Admin Toggle Button */}
+        <div className="admin-toggle-container">
+          <button
+            type="button"
+            className={`admin-toggle-btn ${role === "admin" ? "active" : ""}`}
+            onClick={toggleAdminMode}
+          >
+            <span className="toggle-icon">⚙️</span>
+            Admin {role === "admin" ? "✓" : ""}
+          </button>
+          <span className="login-mode-text">
+            {role === "admin" ? "Admin Mode" : "User Mode"}
+          </span>
         </div>
 
         <form onSubmit={handleSubmit}>

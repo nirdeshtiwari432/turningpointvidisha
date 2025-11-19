@@ -72,3 +72,14 @@
     font-size: 1.5rem;
   }
 }
+/* Fix for navbar covering top content */
+.alerts-page {
+  padding-top: 40px; /* for desktop */
+}
+
+/* Mobile and tablet */
+@media (max-width: 768px) {
+  .alerts-page {
+    padding-top: 50px; /* more padding for smaller screens */
+  }
+}

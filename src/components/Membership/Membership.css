@@ -143,8 +143,9 @@
 /* Small Mobile (≤480px) */
 @media (max-width: 480px) {
   .membership {
-    padding: 40px 10px;
-  }
+ padding-top: 110px; /* fixes hidden top content */
+    padding-left: 10px;
+    padding-right: 10px;  }
 
   .membership-title {
     font-size: 1.5rem;
