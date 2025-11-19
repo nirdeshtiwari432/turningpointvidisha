@@ -25,7 +25,7 @@ import SeatsPage from "./components/Dashboard/SeatsPage";
 import EditMemberPage from "./components/Dashboard/edit.jsx";
 import MemberDetailsPage from "./components/Dashboard/MemberDetailsPage.jsx";
 import Unpaid from "./components/Dashboard/Unpaid/UnpaidPage.jsx";
-import NewMember from "./components/Dashboard/newmember.jsx";
+import NewMember from "./components/Dashboard/Newmember.jsx";
 import Plan from "./components/Dashboard/plan/ManagePlans.jsx";
 
 import Fees from "./components/Dashboard/Fees/Transactions.jsx"
