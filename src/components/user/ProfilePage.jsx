@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./ProfilePage.css"; // We'll create this CSS file
+import "./ProfilePage.css";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
   const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null); // 🔥 Preview state
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,12 +31,15 @@ const ProfilePage = () => {
 
   const handleFileChange = (e) => {
     const selected = e.target.files[0];
+
     if (selected && selected.size > 10 * 1024 * 1024) {
       alert("File size exceeds 10 MB!");
       e.target.value = null;
       return;
     }
+
     setFile(selected);
+    setPreview(URL.createObjectURL(selected)); // 🔥 Preview image
   };
 
   const handleUpload = async () => {
@@ -55,6 +59,8 @@ const ProfilePage = () => {
       if (res.ok) {
         alert("Profile photo updated successfully!");
         setUser((prev) => ({ ...prev, profilePic: data.imageUrl }));
+        setPreview(null); // remove preview after upload
+        setFile(null);
       } else {
         alert(data.message || "Upload failed");
       }
@@ -89,30 +95,34 @@ const ProfilePage = () => {
     <div className="profile-container">
       <div className="profile-card">
         <h2 className="profile-title">My Profile</h2>
-        
+
         <div className="profile-content">
           {/* Left Side - Photo Upload */}
           <div className="photo-section">
             <div className="photo-upload">
               <h3>Upload a photo</h3>
+
               <div className="photo-preview">
                 <img
-                  src={user.profilePic || "/default-avatar.png"}
+                  src={preview || user.profilePic || "/default-avatar.png"} // 🔥 Preview or current
                   alt="Profile"
                   className="profile-image"
                 />
               </div>
+
               <div className="upload-controls">
-                <input 
-                  type="file" 
+                <input
+                  type="file"
                   id="file-input"
-                  accept="image/*" 
-                  onChange={handleFileChange} 
+                  accept="image/*"
+                  onChange={handleFileChange}
                   className="file-input"
                 />
+
                 <label htmlFor="file-input" className="file-label">
                   Choose File
                 </label>
+
                 <button className="upload-btn" onClick={handleUpload}>
                   Upload Photo
                 </button>
@@ -127,51 +137,56 @@ const ProfilePage = () => {
                 <span className="detail-label">Name</span>
                 <span className="detail-value">{user.name}</span>
               </div>
-              
+
               <div className="detail-item">
                 <span className="detail-label">Number</span>
                 <span className="detail-value phone-number">+91 {user.number}</span>
               </div>
-              
+
               <div className="detail-item">
                 <span className="detail-label">Plan</span>
                 <span className="detail-value">{user.plan}</span>
               </div>
-              
+
               <div className="detail-item">
                 <span className="detail-label">Start Date</span>
-                <span className="detail-value">{user.startDate?.slice(0, 10) || "-"}</span>
+                <span className="detail-value">
+                  {user.startDate?.slice(0, 10) || "-"}
+                </span>
               </div>
-              
+
               <div className="detail-item">
                 <span className="detail-label">Seat</span>
                 <span className="detail-value">{user.seat?.seatNo || "-"}</span>
               </div>
 
-              
               <div className="detail-item">
                 <span className="detail-label">Email</span>
-                <span className="detail-value email">{user.email || "Not provided"}</span>
+                <span className="detail-value email">{user.email}</span>
               </div>
-              
+
               <div className="detail-item">
                 <span className="detail-label">Membership Type</span>
                 <span className="detail-value">{user.membershipType}</span>
               </div>
-              
+
               <div className="detail-item">
                 <span className="detail-label">Shift</span>
                 <span className="detail-value">{user.shift}</span>
               </div>
-              
+
               <div className="detail-item">
                 <span className="detail-label">End Date</span>
-                <span className="detail-value">{user.endDate?.slice(0, 10) || "-"}</span>
+                <span className="detail-value">
+                  {user.endDate?.slice(0, 10) || "-"}
+                </span>
               </div>
-              
+
               <div className="detail-item">
                 <span className="detail-label">Fees Paid</span>
-                <span className="detail-value fee-amount">{user.fees || "-"}</span>
+                <span className="detail-value fee-amount">
+                  {user.fees || "-"}
+                </span>
               </div>
             </div>
           </div>
