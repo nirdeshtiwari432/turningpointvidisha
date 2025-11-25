@@ -20,6 +20,7 @@ const SignupPage = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
+    // Auto reset shift when not part-time
     if (name === "plan" && value !== "part_time") {
       setForm({ ...form, [name]: value, shift: "full_time" });
     } else {
@@ -46,6 +47,7 @@ const SignupPage = () => {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/user/new`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",     // ⭐ REQUIRED FOR AUTO LOGIN ⭐
         body: JSON.stringify(payload),
       });
 
@@ -53,10 +55,9 @@ const SignupPage = () => {
 
       if (res.ok) {
         setMessage("✅ Account created successfully!");
-        navigate("/user/profile");
 
-        // (Optional) redirect to login page instead of OTP verification
-        // navigate("/login");
+        // Auto login → backend sets session → redirect
+        navigate("/user/profile");
       } else {
         setMessage(`❌ ${data.message || "Something went wrong"}`);
       }
@@ -112,9 +113,9 @@ const SignupPage = () => {
               <input
                 type="text"
                 name="number"
+                maxLength={10}
                 value={form.number}
                 onChange={handleChange}
-                maxLength={10}
                 required
               />
             </div>
