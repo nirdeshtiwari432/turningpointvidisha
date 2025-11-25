@@ -31,7 +31,7 @@ import Fees from "./components/Dashboard/Fees/Transactions.jsx"
 
 // Auth
 import ProtectedRoute from "./components/Dashboard/ProtectedRoute.jsx";
-import OtpVerify from "./components/Signup/OtpVerify.jsx"
+
 
 function App() {
   return (
@@ -43,7 +43,6 @@ function App() {
         <Route path="/" element={<Hero />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/verify-otp" element={<OtpVerify />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/membership" element={<MembershipPage />} />
         <Route path="/payment" element={<PaymentPage />} />
