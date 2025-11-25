@@ -34,7 +34,7 @@ const ManagePlans = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
+
     const method = editId ? "PUT" : "POST";
     const url = editId
       ? `${import.meta.env.VITE_API_URL}/admin/plans/${editId}`
@@ -47,10 +47,12 @@ const ManagePlans = () => {
         body: JSON.stringify(form),
         credentials: "include",
       });
+
       const data = await res.json();
 
       if (data.success) {
         alert(editId ? "Plan updated successfully!" : "Plan added successfully!");
+
         setForm({
           title: "",
           price: "",
@@ -59,6 +61,7 @@ const ManagePlans = () => {
           duration: "",
           reserved: false,
         });
+
         setEditId(null);
         fetchPlans();
       } else {
@@ -77,11 +80,13 @@ const ManagePlans = () => {
     if (!window.confirm("Are you sure you want to delete this plan?")) return;
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/admin/plans/${id}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/plans/${id}`,
+        { method: "DELETE", credentials: "include" }
+      );
+
       const data = await res.json();
+
       if (data.success) {
         alert("Plan deleted successfully!");
         fetchPlans();
@@ -106,7 +111,7 @@ const ManagePlans = () => {
     setEditId(plan._id);
   };
 
-  // Reset form on category change
+  // Reset fields based on category
   useEffect(() => {
     if (form.category === "seat") {
       setForm((f) => ({ ...f, duration: "" }));
@@ -121,7 +126,9 @@ const ManagePlans = () => {
         <div className="page-header-section">
           <div>
             <h1 className="page-title">Manage Membership Plans</h1>
-            <p className="page-subtitle">Create and manage different membership plans for your gym</p>
+            <p className="page-subtitle">
+              Create and manage different membership plans for your gym
+            </p>
           </div>
         </div>
 
@@ -138,18 +145,22 @@ const ManagePlans = () => {
                       type="text"
                       placeholder="e.g., Morning Shift, Annual Membership"
                       value={form.title}
-                      onChange={(e) => setForm({ ...form, title: e.target.value })}
+                      onChange={(e) =>
+                        setForm({ ...form, title: e.target.value })
+                      }
                       required
                     />
                   </div>
-                  
+
                   <div className="form-group">
                     <label>Price (₹)</label>
                     <input
                       type="number"
                       placeholder="Enter price"
                       value={form.price}
-                      onChange={(e) => setForm({ ...form, price: e.target.value })}
+                      onChange={(e) =>
+                        setForm({ ...form, price: e.target.value })
+                      }
                       required
                     />
                   </div>
@@ -160,7 +171,9 @@ const ManagePlans = () => {
                     <label>Category</label>
                     <select
                       value={form.category}
-                      onChange={(e) => setForm({ ...form, category: e.target.value })}
+                      onChange={(e) =>
+                        setForm({ ...form, category: e.target.value })
+                      }
                     >
                       <option value="seat">Seat Plan</option>
                       <option value="longterm">Long Term Plan</option>
@@ -171,31 +184,39 @@ const ManagePlans = () => {
                     <label>
                       {form.category === "seat" ? "Timing" : "Duration"}
                     </label>
+
                     {form.category === "seat" ? (
                       <input
                         type="text"
-                        placeholder="e.g., 6:00 AM - 12:00 PM"
+                        placeholder="6:00 AM - 12:00 PM"
                         value={form.timing}
-                        onChange={(e) => setForm({ ...form, timing: e.target.value })}
+                        onChange={(e) =>
+                          setForm({ ...form, timing: e.target.value })
+                        }
                       />
                     ) : (
                       <input
                         type="text"
-                        placeholder="e.g., 6 months, 1 year"
+                        placeholder="6 months, 1 year"
                         value={form.duration}
-                        onChange={(e) => setForm({ ...form, duration: e.target.value })}
+                        onChange={(e) =>
+                          setForm({ ...form, duration: e.target.value })
+                        }
                       />
                     )}
                   </div>
                 </div>
 
+                {/* Reserved only for seat category */}
                 {form.category === "seat" && (
                   <div className="form-group checkbox-group">
                     <label className="checkbox-label">
                       <input
                         type="checkbox"
                         checked={form.reserved}
-                        onChange={(e) => setForm({ ...form, reserved: e.target.checked })}
+                        onChange={(e) =>
+                          setForm({ ...form, reserved: e.target.checked })
+                        }
                       />
                       <span className="checkmark"></span>
                       Reserved Seat
@@ -204,12 +225,16 @@ const ManagePlans = () => {
                 )}
 
                 <div className="form-actions">
-                  <button 
-                    type="submit" 
+                  <button
+                    type="submit"
                     className="btn-primary"
                     disabled={loading}
                   >
-                    {loading ? "Saving..." : (editId ? "Update Plan" : "Add Plan")}
+                    {loading
+                      ? "Saving..."
+                      : editId
+                      ? "Update Plan"
+                      : "Add Plan"}
                   </button>
 
                   {editId && (
@@ -240,7 +265,9 @@ const ManagePlans = () => {
               <div className="card-header">
                 <div>
                   <h3 className="card-title">Current Plans</h3>
-                  <p className="card-subtitle">Total {plans.length} plan{plans.length !== 1 ? 's' : ''}</p>
+                  <p className="card-subtitle">
+                    Total {plans.length} plan{plans.length !== 1 ? "s" : ""}
+                  </p>
                 </div>
               </div>
 
@@ -261,29 +288,49 @@ const ManagePlans = () => {
                       {plans.map((plan) => (
                         <tr key={plan._id}>
                           <td className="plan-title">{plan.title}</td>
+
                           <td className="plan-price">₹{plan.price}</td>
+
                           <td>
-                            <span className={`category-badge ${plan.category}`}>
-                              {plan.category === "seat" ? "Seat Plan" : "Long Term"}
+                            <span
+                              className={`category-badge ${plan.category}`}
+                            >
+                              {plan.category === "seat"
+                                ? "Seat Plan"
+                                : "Long Term"}
                             </span>
                           </td>
+
                           <td>
-                            {plan.category === "seat" ? plan.timing : plan.duration}
+                            {plan.category === "seat"
+                              ? plan.timing
+                              : plan.duration}
                           </td>
+
                           <td>
-                            <span className={`reserved-status ${plan.reserved ? 'yes' : 'no'}`}>
-                              {plan.reserved ? "Yes" : "No"}
-                            </span>
+                            {/* Show reserved only for seat category */}
+                            {plan.category === "seat" ? (
+                              <span
+                                className={`reserved-status ${
+                                  plan.reserved ? "yes" : "no"
+                                }`}
+                              >
+                                {plan.reserved ? "Yes" : "No"}
+                              </span>
+                            ) : (
+                              <span className="reserved-status na">N/A</span>
+                            )}
                           </td>
+
                           <td>
                             <div className="action-buttons">
-                              <button 
+                              <button
                                 className="btn-edit"
                                 onClick={() => handleEdit(plan)}
                               >
                                 Edit
                               </button>
-                              <button 
+                              <button
                                 className="btn-delete"
                                 onClick={() => handleDelete(plan._id)}
                               >
@@ -293,12 +340,15 @@ const ManagePlans = () => {
                           </td>
                         </tr>
                       ))}
+
                       {plans.length === 0 && (
                         <tr>
                           <td colSpan="6" className="no-data">
                             <div className="no-plans-message">
                               <p>No plans found</p>
-                              <span>Add your first plan using the form above</span>
+                              <span>
+                                Add your first plan using the form above
+                              </span>
                             </div>
                           </td>
                         </tr>
