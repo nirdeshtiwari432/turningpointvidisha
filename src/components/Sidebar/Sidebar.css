@@ -1,0 +1,95 @@
+/* --- Desktop Sidebar --- */
+.sidebar {
+  width: 220px;
+  background: #212529; /* This is the dark background */
+  color: white;
+  padding: 20px 0;
+  
+  /* Stick it to the left side */
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  
+  /* Smooth transition for sliding */
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000; /* Make sure it's on top */
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+
+.sidebar-header h3 {
+  color: white;
+  margin: 0;
+}
+
+.sidebar-close-btn {
+  display: none; /* Hide close button on desktop */
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.sidebar-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-links li a {
+  display: block;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #adb5bd; /* Light gray color for links */
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-links li a:hover {
+  background-color: #343a40; /* Slightly lighter dark on hover */
+  color: white;
+}
+
+/* This is for the 'Profile' button */
+.sidebar-profile-link {
+  margin-top: 20px;
+  padding: 0 20px;
+}
+
+.sidebar-profile-btn {
+  background: #1e40af;
+  color: white !important;
+  text-align: center;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.sidebar-profile-btn:hover {
+  background: #1a36a0 !important;
+}
+
+
+/* --- Mobile Responsive --- */
+@media (max-width: 768px) {
+  .sidebar {
+    /* On mobile, hide the sidebar off-screen by default */
+    transform: translateX(-100%);
+  }
+  
+  .sidebar.is-open {
+    /* This class (added by React) slides it into view */
+    transform: translateX(0);
+  }
+
+  .sidebar-close-btn {
+    display: block; /* Show the close button on mobile */
+  }
+}

@@ -1,36 +1,39 @@
-/* NUCLEAR RESET */
-* {
-  margin: 0 !important;
-  padding: 0 !important;
-  box-sizing: border-box !important;
+/* A gentle, modern reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body, html, #root {
-  width: 100% !important;
-  height: 100% !important;
+  width: 100%;
+  min-height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Force the layout */
-.sidebar {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 220px !important;
-  height: 100vh !important;
-  background: #212529 !important;
+/* This pushes public-page content down, so it's not
+   hidden underneath your fixed public Header.
+   Adjust 70px to match your Header's height!
+*/
+.main-container {
+  padding-top: 70px; 
 }
 
-.main-content {
-  margin-left: 220px !important;
-  width: calc(100% - 220px) !important;
-  min-height: 100vh !important;
-  background: #f8f9fa !important;
+/* Show only Header on desktop, Navbar on mobile */
+.desktop-header {
+  display: block;
+}
+.mobile-navbar {
+  display: none;
 }
 
-/* Mobile override */
-@media (max-width: 767px) {
-  .main-content {
-    margin-left: 0 !important;
-    width: 100% !important;
+/* On smaller devices, hide Header and show Navbar */
+@media (max-width: 768px) {
+  .desktop-header {
+    display: none;
+  }
+  .mobile-navbar {
+    display: block;
   }
 }

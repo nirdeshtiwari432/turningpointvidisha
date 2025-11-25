@@ -48,7 +48,7 @@ const PaymentPage = () => {
   };
 
   return (
-    <div style={{ textAlign: "center", padding: "50px" }}>
+<div className="payment-container">
       <h2>Payment for {plan.title}</h2>
       <p>Amount: ₹{plan.price}</p>
       {plan.timing && <p>Timing: {plan.timing}</p>}

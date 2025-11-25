@@ -43,7 +43,7 @@ const EditMemberPage = () => {
       .catch((err) => console.error(err));
   }, [id]);
 
-  if (!user) return <p className="text-center my-4">Loading...</p>;
+  if (!user) return <p className="text-center my-4 loading-text">Loading...</p>;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -74,13 +74,13 @@ const EditMemberPage = () => {
 
   return (
     <DashboardHeader>
-      <div className="bg-light">
-        <div className="card edit-card">
+      <div className="edit-page-container">
+        <div className="edit-card">
           <h2>Edit Member</h2>
 
           <form onSubmit={handleSubmit}>
             {/* Name */}
-            <div className="mb-3">
+            <div className="form-group">
               <label className="form-label">Name</label>
               <input
                 type="text"
@@ -93,7 +93,7 @@ const EditMemberPage = () => {
             </div>
 
             {/* Email */}
-            <div className="mb-3">
+            <div className="form-group">
               <label className="form-label">Email</label>
               <input
                 type="email"
@@ -105,7 +105,7 @@ const EditMemberPage = () => {
             </div>
 
             {/* Number */}
-            <div className="mb-3">
+            <div className="form-group">
               <label className="form-label">Number</label>
               <input
                 type="text"
@@ -117,7 +117,7 @@ const EditMemberPage = () => {
             </div>
 
             {/* Membership Type */}
-            <div className="mb-3">
+            <div className="form-group">
               <label className="form-label">Membership Type</label>
               <input
                 type="text"
@@ -129,7 +129,7 @@ const EditMemberPage = () => {
             </div>
 
             {/* Plan */}
-            <div className="mb-3">
+            <div className="form-group">
               <label className="form-label">Plan</label>
               <input
                 type="text"
@@ -141,7 +141,7 @@ const EditMemberPage = () => {
             </div>
 
             {/* Seat No */}
-            <div className="mb-3">
+            <div className="form-group">
               <label className="form-label">Seat Number</label>
               <input
                 type="text"
@@ -153,7 +153,7 @@ const EditMemberPage = () => {
             </div>
 
             {/* Shift */}
-            <div className="mb-3">
+            <div className="form-group">
               <label className="form-label">Shift</label>
               <input
                 type="text"
@@ -165,7 +165,7 @@ const EditMemberPage = () => {
             </div>
 
             {/* Fees */}
-            <div className="mb-3">
+            <div className="form-group">
               <label className="form-label">Fees</label>
               <input
                 type="number"
@@ -177,8 +177,8 @@ const EditMemberPage = () => {
             </div>
 
             {/* Dates */}
-            <div className="row">
-              <div className="col-md-6 mb-3">
+            <div className="form-row">
+              <div className="form-group col-md-6">
                 <label className="form-label">Start Date</label>
                 <input
                   type="date"
@@ -188,7 +188,7 @@ const EditMemberPage = () => {
                   onChange={handleChange}
                 />
               </div>
-              <div className="col-md-6 mb-3">
+              <div className="form-group col-md-6">
                 <label className="form-label">End Date</label>
                 <input
                   type="date"
@@ -201,9 +201,9 @@ const EditMemberPage = () => {
             </div>
 
             {/* Buttons */}
-            <div className="d-flex justify-content-end">
-              <button type="submit" className="btn btn-success me-2">
-                Update
+            <div className="form-actions">
+              <button type="submit" className="btn btn-primary">
+                Update Member
               </button>
               <button
                 type="button"

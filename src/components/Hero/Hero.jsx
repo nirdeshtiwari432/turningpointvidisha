@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Hero.css";
 
-// Import images
+// Local images
 import p1 from "../../assets/p1.jpg";
 import p2 from "../../assets/p2.jpg";
 import p3 from "../../assets/p3.jpg";
@@ -13,17 +13,13 @@ const Hero = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [showGallery, setShowGallery] = useState(false);
-  const [user, setUser] = useState(null); // store user from localStorage
+  const [user, setUser] = useState(null);
 
   const photos = [p1, p2, p3, p4, p5];
-
-  // ✅ Check if user is logged in using localStorage
-  useEffect(() => {
+ useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     setUser(storedUser);
   }, []);
-
-  // ✅ Show gallery when scrolled
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 300) setShowGallery(true);
@@ -32,17 +28,16 @@ const Hero = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // ✅ Scroll to library section when navigated from Header
   useEffect(() => {
     if (location.state?.scrollTo === "library") {
       const section = document.getElementById("library-section");
       if (section) {
-        setTimeout(() => section.scrollIntoView({ behavior: "smooth" }), 300);
+        setTimeout(() => {
+          section.scrollIntoView({ behavior: "smooth" });
+        }, 300);
       }
     }
   }, [location]);
-
-  // ✅ Handle Join/Profile button
   const handleJoinClick = () => {
     if (!user) {
       // Not logged in → go to login
@@ -58,6 +53,7 @@ const Hero = () => {
 
   return (
     <div className="hero-container">
+      {/* ===== HERO SECTION ===== */}
       <section className="hero">
         <div className="hero-overlay">
           <div className="hero-content">
@@ -66,7 +62,6 @@ const Hero = () => {
               Modern study cubicles, peaceful atmosphere, and membership plans
               for students and professionals.
             </p>
-
             <div className="hero-buttons">
               <button
                 className="btn primary"
@@ -77,9 +72,7 @@ const Hero = () => {
               >
                 Explore Library
               </button>
-
-              {/* ✅ Join/Profile Button */}
-              <button className="btn secondary" onClick={handleJoinClick}>
+             <button className="btn secondary" onClick={handleJoinClick}>
                 {user ? "Go to Profile" : "Join Now"}
               </button>
             </div>
@@ -87,6 +80,7 @@ const Hero = () => {
         </div>
       </section>
 
+      {/* ===== GALLERY SECTION ===== */}
       <section
         id="library-section"
         className={`photo-gallery ${showGallery ? "visible" : ""}`}

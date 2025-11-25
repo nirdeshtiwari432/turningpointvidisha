@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./UserDetailsCard.css"
+
 const UserDetailsCard = ({ user }) => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("contact");
@@ -29,6 +30,17 @@ const UserDetailsCard = ({ user }) => {
     }
   };
 
+  // Function to generate initials from name
+  const getInitials = (name) => {
+    if (!name) return "U";
+    return name
+      .split(' ')
+      .map(word => word[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
   return (
     <div className="dashboard-container">
       {/* Sidebar */}
@@ -39,27 +51,13 @@ const UserDetailsCard = ({ user }) => {
         
         <nav className="sidebar-nav">
           <div className="nav-section">
-            <div className="nav-item active">Dashboard</div>
-            <div className="nav-item active">Members</div>
-          </div>
-          
-          <div className="user-profile-section">
-            <div className="user-avatar">
-              <img
-                src={user.profilePic || "https://via.placeholder.com/150"}
-                alt="Profile"
-                className="avatar-img"
-              />
-            </div>
-            <h3 className="user-name">{user.name}</h3>
-            <p className="user-id">Member ID: {user._id}</p>
-            <p className="join-date">Joined: {user.startDate ? new Date(user.startDate).toLocaleDateString("en-GB") : "N/A"}</p>
-          </div>
-
-          <div className="nav-section">
-            <div className="nav-item">New Member</div>
-            <div className="nav-item">Settings</div>
-            <div className="nav-item">Support</div>
+            <div className="nav-item">Dashboard</div>
+            <div className="nav-item">Transactions</div>
+            <div className="nav-item active">Member Details</div>
+            <div className="nav-item">Urgent Member</div>
+            <div className="nav-item">Plan</div>
+            <div className="nav-item">Seat Details</div>
+            <div className="nav-item">Alert</div>
           </div>
         </nav>
       </div>
@@ -68,48 +66,67 @@ const UserDetailsCard = ({ user }) => {
       <div className="main-content">
         <div className="content-header">
           <h1>Member Details</h1>
-          {isNewUser && <span className="new-badge">New User</span>}
         </div>
 
-        {/* Tab Navigation - Only Contact Info and Membership */}
+        {/* Profile Section with Photo and Name */}
+        <div className="profile-header-section">
+          <div className="profile-avatar-large">
+            {user.profilePic ? (
+              <img
+                src={user.profilePic}
+                alt="Profile"
+                className="avatar-large-img"
+              />
+            ) : (
+              <div className="avatar-initials-large">
+                {getInitials(user.name)}
+              </div>
+            )}
+          </div>
+          <div className="profile-info-header">
+            <h2 className="profile-name">{user.name || "N/A"}</h2>
+
+          </div>
+        </div>
+
+        {/* Tab Navigation */}
         <div className="tab-navigation">
-          <button 
-            className={`tab-btn ${activeTab === "contact" ? "active" : ""}`}
-            onClick={() => setActiveTab("contact")}
-          >
-            Contact Info
-          </button>
-          <button 
-            className={`tab-btn ${activeTab === "membership" ? "active" : ""}`}
-            onClick={() => setActiveTab("membership")}
-          >
-            Membership
-          </button>
+          <div className="tab-buttons">
+            <button 
+              className={`tab-btn ${activeTab === "contact" ? "active" : ""}`}
+              onClick={() => setActiveTab("contact")}
+            >
+              Contact Info
+            </button>
+            <button 
+              className={`tab-btn ${activeTab === "membership" ? "active" : ""}`}
+              onClick={() => setActiveTab("membership")}
+            >
+              Membership
+            </button>
+          </div>
           <div className="user-actions">
-              <button 
-                className="btn-edit-profile"
-                onClick={() => navigate(`/members/${user._id}/edit`)}
-              >
-                Edit Profile
-              </button>
-              <button className="btn-deactivate" onClick={handleDelete}>
-                Delete
-              </button>
-            </div>
+            <button 
+              className="btn-edit-profile"
+              onClick={() => navigate(`/members/${user._id}/edit`)}
+            >
+              Edit Profile
+            </button>
+            <button className="btn-deactivate" onClick={handleDelete}>
+              Delete
+            </button>
+          </div>
         </div>
 
         {/* Tab Content */}
         <div className="tab-content">
-          <div className="profile-image">
-                   <img
-                        src={user.profilePic || "https://via.placeholder.com/150"}
-                        alt="Profile"
-                   />
-          </div>
-          <br />  
           {activeTab === "contact" && (
             <div className="contact-info">
               <div className="info-card">
+                <div className="info-item">
+                  <span className="info-label">Name</span>
+                  <span className="info-value">{user.name || "N/A"}</span>
+                </div>
                 <div className="info-item">
                   <span className="info-label">Phone</span>
                   <span className="info-value">{user.number || "N/A"}</span>
@@ -118,7 +135,6 @@ const UserDetailsCard = ({ user }) => {
                   <span className="info-label">Email</span>
                   <span className="info-value">{user.email || "N/A"}</span>
                 </div>
-                
               </div>
             </div>
           )}

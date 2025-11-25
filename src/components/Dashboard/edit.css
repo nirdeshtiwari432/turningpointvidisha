@@ -1,59 +1,162 @@
-.bg-light {
+.edit-page-container {
   min-height: 100vh;
-  background: #f5f7fa;
+  background: linear-gradient(135deg, #ededf5 0%, #edeff1 100%);
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding-top: 2rem;
+  padding: 2rem 1rem;
 }
 
 .edit-card {
   width: 100%;
   max-width: 800px;
-  background: #fff;
+  background: #667eea;
   border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  padding: 2.5rem;
   margin-top: 1rem;
+  border: none;
 }
 
 .edit-card h2 {
   text-align: center;
-  font-weight: 600;
-  color: #222;
+  font-weight: 700;
+  color: #1e3c72;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 1rem;
+}
+
+.form-group {
   margin-bottom: 1.5rem;
 }
 
+.form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-row .form-group {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.95rem;
+}
+
 .form-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e9ecef;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  font-size: 1rem;
+  background: #ffffff;
+  color: #2c3e50;
+  transition: all 0.3s ease;
 }
 
 .form-control:focus {
-  border-color: #198754;
-  box-shadow: 0 0 5px rgba(25, 135, 84, 0.3);
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  background: #ffffff;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #e9ecef;
 }
 
 .btn {
+  padding: 0.75rem 2rem;
+  border: none;
   border-radius: 8px;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.btn-success {
-  background-color: #198754;
+.btn-primary {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
 }
 
-.btn-success:hover {
-  background-color: #157347;
+.btn-primary:hover {
+  background: linear-gradient(135deg, #2980b9, #1f639b);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+  color: white;
 }
 
 .btn-secondary:hover {
-  background-color: #5c636a;
+  background: linear-gradient(135deg, #7f8c8d, #6c7b7d);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(149, 165, 166, 0.4);
 }
 
+.loading-text {
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
+  .edit-page-container {
+    padding: 1rem 0.5rem;
+  }
+  
   .edit-card {
-    margin: 1rem;
+    margin: 0.5rem;
+    padding: 1.5rem;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
+  }
+  
+  .edit-card h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .edit-card {
     padding: 1.2rem;
+  }
+  
+  .form-control {
+    padding: 0.6rem 0.8rem;
+  }
+  
+  .btn {
+    padding: 0.6rem 1.5rem;
   }
 }

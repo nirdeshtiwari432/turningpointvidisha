@@ -7,6 +7,8 @@ const ProfilePage = () => {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null); // 🔥 Preview state
   const navigate = useNavigate();
+  const [uploading, setUploading] = useState(false);
+
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -41,6 +43,47 @@ const ProfilePage = () => {
     setFile(selected);
     setPreview(URL.createObjectURL(selected)); // 🔥 Preview image
   };
+  const handleUpload1 = async () => {
+  if (!file) return alert("Please select an image first!");
+
+  setUploading(true); // start loader
+
+  const formData = new FormData();
+  formData.append("profilePic", file);
+
+  try {
+    // fake "5 second loading screen" even if backend responds fast
+    const delay = new Promise(resolve => setTimeout(resolve, 5000));
+
+    const uploadRequest = fetch(
+      `${import.meta.env.VITE_API_URL}/user/upload-photo`,
+      {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      }
+    );
+
+    // wait for BOTH: upload + 5 seconds
+    const [res] = await Promise.all([uploadRequest, delay]);
+    const data = await res.json();
+
+    if (res.ok) {
+      alert("Profile photo updated successfully!");
+      setUser(prev => ({ ...prev, profilePic: data.imageUrl }));
+      setPreview(null);
+      setFile(null);
+    } else {
+      alert(data.message || "Upload failed");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong while uploading");
+  } finally {
+    setUploading(false); // stop loader
+  }
+};
+
 
   const handleUpload = async () => {
     if (!file) return alert("Please select an image first!");
@@ -123,9 +166,14 @@ const ProfilePage = () => {
                   Choose File
                 </label>
 
-                <button className="upload-btn" onClick={handleUpload}>
-                  Upload Photo
-                </button>
+                <button className="upload-btn" onClick={handleUpload1} disabled={uploading}>
+  {uploading ? "Uploading..." : "Upload Photo"}
+</button>
+
+{uploading && (
+  <div className="loader"></div>
+)}
+
               </div>
             </div>
           </div>

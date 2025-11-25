@@ -1,3 +1,52 @@
+/* Main container */
+.payment-container {
+  color: #0a1a2f;          /* Deep readable navy text */
+  background: #ffffff;     /* Clean white background */
+  padding: 100px;
+  text-align: center;
+}
+
+/* Headings */
+.payment-container h2,
+.payment-container h3 {
+  color: #0a1a2f;
+  font-weight: 600;
+}
+
+/* Paragraphs */
+.payment-container p {
+  color: #1b2b44;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* Buttons */
+.payment-container button {
+  background-color: #1e4fb8; 
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.payment-container button:hover {
+  background-color: #163f94;
+}
+
+/* Form Inputs */
+.payment-container input {
+  border: 1px solid #bfc8d7;
+  border-radius: 6px;
+  color: #0a1a2f;
+  background: #ffffff;
+}
+
+.payment-container input::placeholder {
+  color: #6c7a8c;
+}
+
+/* QR Code */
 .qr-code {
   margin: 20px auto;
   width: 220px;
