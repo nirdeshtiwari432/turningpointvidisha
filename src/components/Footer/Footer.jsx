@@ -29,9 +29,9 @@ const Footer = () => {
         {/* Contact Info */}
         <div className="footer-section contact">
           <h3>Contact Us</h3>
-          <p><i className="fas fa-map-marker-alt"></i> 123 Focus Street, New Delhi, India</p>
-          <p><i className="fas fa-phone-alt"></i> +91 98765 43210</p>
-          <p><i className="fas fa-envelope"></i> contact@turningpoint.com</p>
+          <p><i className="fas fa-map-marker-alt"></i> Vidisha Station Road Nearby Radhika Restorent</p>
+          <p><i className="fas fa-phone-alt"></i> +91 8770345218</p>
+          <p><i className="fas fa-envelope"></i> turningpoint937@gmail.com</p>
         </div>
 
         {/* Social Media */}

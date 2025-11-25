@@ -18,7 +18,7 @@ const PaymentPage = () => {
   }
 
   const { plan } = location.state;
-  const upiId = "nirdeshtiwari432-1@okhdfcbank";
+  const upiId = "8770345218@ibl";
   const upiLink = `upi://pay?pa=${upiId}&pn=Library&am=${plan.price}&cu=INR&tn=${encodeURIComponent(plan.title)} Payment`;
 
   const handleChange = (e) => {
