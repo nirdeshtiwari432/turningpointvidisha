@@ -52,10 +52,10 @@ const SignupPage = () => {
       const data = await res.json();
 
       if (res.ok) {
-        setMessage("✅ OTP sent to your WhatsApp");
+        setMessage("✅ Account created successfully!");
 
-        // ✅ Redirect only with number (backend does NOT send userId)
-        navigate(`/verify-otp?number=${form.number}`);
+        // (Optional) redirect to login page instead of OTP verification
+        // navigate("/login");
       } else {
         setMessage(`❌ ${data.message || "Something went wrong"}`);
       }
@@ -85,7 +85,6 @@ const SignupPage = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="form-grid">
-
             <div className="form-group">
               <label>Name *</label>
               <input
