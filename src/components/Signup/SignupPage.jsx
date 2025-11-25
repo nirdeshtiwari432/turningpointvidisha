@@ -53,6 +53,7 @@ const SignupPage = () => {
 
       if (res.ok) {
         setMessage("✅ Account created successfully!");
+        navigate("/user/profile");
 
         // (Optional) redirect to login page instead of OTP verification
         // navigate("/login");
