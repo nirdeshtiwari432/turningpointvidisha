@@ -4,6 +4,8 @@ import { Routes, Route } from "react-router-dom";
 // Layout Components
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import Navbar from "./components/Navbar/Navbar";
+import ScrollToTop from "./ScrollToTop";
 
 // Pages
 import Hero from "./components/Hero/Hero";
