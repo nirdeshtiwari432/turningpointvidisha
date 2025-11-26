@@ -56,7 +56,7 @@ const SeatsTable = ({ seats, filter, setFilter }) => {
                 <tbody>
                   {seats.map((seat) => {
                     const bookedUsers = seat.bookedBy || [];
-                    const isBooked = bookedUsers.length > 0;   // still used for display only
+                    const isBooked = bookedUsers.length > 0;   // still used for display onl
 
                     return (
                       <tr key={seat._id}>
