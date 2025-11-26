@@ -79,13 +79,13 @@ const SeatsTable = ({ seats, filter, setFilter }) => {
                         </td>
                         <td>{seat.timing?.replace(/_/g, " ") || "-"}</td>
                         <td>
-                          <button
-                            className={`action-btn ${isBooked ? 'booked' : 'available'}`}
-                            onClick={() => handleBook(seat._id, seat.seatNo)}
-                            disabled={isBooked}
+                          <button 
+                             className="action-btn"
+                             onClick={() => handleBook(seat._id, seat.seatNo)}
                           >
-                            {isBooked ? 'Booked' : 'Book'}
+                            Book
                           </button>
+
                         </td>
                       </tr>
                     );
