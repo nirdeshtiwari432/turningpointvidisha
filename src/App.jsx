@@ -38,7 +38,16 @@ import ProtectedRoute from "./components/Dashboard/ProtectedRoute.jsx";
 function App() {
   return (
     <>
-      <Header />
+      <ScrollToTop /> 
+      {/* Desktop Header */}
+      <div className="desktop-header">
+        <Header />
+      </div>
+
+      {/* Mobile Navbar */}
+      <div className="mobile-navbar">
+        <Navbar />
+      </div>
 
       <Routes>
         {/* Public Routes */}
