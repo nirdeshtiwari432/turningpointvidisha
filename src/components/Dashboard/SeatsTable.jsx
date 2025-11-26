@@ -3,9 +3,7 @@ import "./SeatTable.css";
 
 const SeatsTable = ({ seats, filter, setFilter }) => {
   const handleBook = (seatId, seatNo) => {
-    // Add your booking logic here
     console.log(`Booking seat ${seatNo} with ID ${seatId}`);
-    // navigate(`/admin/new/${seatId}/${seatNo}`);
   };
 
   return (
@@ -19,6 +17,7 @@ const SeatsTable = ({ seats, filter, setFilter }) => {
                 Total {seats.length} seat{seats.length !== 1 ? 's' : ''}
               </p>
             </div>
+
             <div className="filter-section">
               <select
                 value={filter}
@@ -53,19 +52,22 @@ const SeatsTable = ({ seats, filter, setFilter }) => {
                     <th width="120">ACTION</th>
                   </tr>
                 </thead>
+
                 <tbody>
                   {seats.map((seat) => {
                     const bookedUsers = seat.bookedBy || [];
-                    const isBooked = bookedUsers.length > 0;
+                    const isBooked = bookedUsers.length > 0;   // still used for display only
 
                     return (
                       <tr key={seat._id}>
                         <td className="text-center fw-bold">{seat.seatNo}</td>
+
                         <td>
-                          <span className={`status-badge ${isBooked ? 'booked' : 'available'}`}>
-                            {isBooked ? 'Booked' : 'Available'}
+                          <span className={`status-badge ${isBooked ? "booked" : "available"}`}>
+                            {isBooked ? "Booked" : "Available"}
                           </span>
                         </td>
+
                         <td>
                           {bookedUsers.length > 0 ? (
                             bookedUsers.map((b, idx) => (
@@ -77,20 +79,22 @@ const SeatsTable = ({ seats, filter, setFilter }) => {
                             "-"
                           )}
                         </td>
+
                         <td>{seat.timing?.replace(/_/g, " ") || "-"}</td>
+
                         <td>
                           <button 
-                             className="action-btn"
-                             onClick={() => handleBook(seat._id, seat.seatNo)}
+                            className="action-btn"
+                            onClick={() => handleBook(seat._id, seat.seatNo)}
                           >
                             Book
                           </button>
-
                         </td>
                       </tr>
                     );
                   })}
                 </tbody>
+
               </table>
             </div>
           )}
